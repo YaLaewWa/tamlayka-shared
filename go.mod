@@ -1,4 +1,4 @@
-module github.com/TokiDOkiiiiiiii/shared-for-tamlayka
+module github.com/YaLaewWa/tamlayka-shared
 
 go 1.25.0
 

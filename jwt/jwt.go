@@ -3,7 +3,7 @@ package jwt
 import (
 	"fmt"
 
-	"github.com/TokiDOkiiiiiiii/shared-for-tamlayka/apperror"
+	"github.com/YaLaewWa/tamlayka-shared/apperror"
 	"github.com/golang-jwt/jwt/v4"
 )
 

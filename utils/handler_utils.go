@@ -3,7 +3,7 @@ package utils
 import (
 	"errors"
 
-	"github.com/TokiDOkiiiiiiii/shared-for-tamlayka/apperror"
+	"github.com/YaLaewWa/tamlayka-shared/apperror"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
 )

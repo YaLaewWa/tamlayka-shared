@@ -4,8 +4,8 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/TokiDOkiiiiiiii/shared-for-tamlayka/apperror"
-	"github.com/TokiDOkiiiiiiii/shared-for-tamlayka/jwt"
+	"github.com/YaLaewWa/tamlayka-shared/apperror"
+	"github.com/YaLaewWa/tamlayka-shared/jwt"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
