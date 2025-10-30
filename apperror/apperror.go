@@ -88,6 +88,10 @@ func UnprocessableEntityError(err error, msg string) *AppError {
 	return New(fiber.StatusUnprocessableEntity, msg, err)
 }
 
+func ServiceUnavailableError(err error, msg string) *AppError {
+	return New(fiber.StatusServiceUnavailable, msg, err)
+}
+
 func ErrorHandler(c *fiber.Ctx, err error) error {
 
 	// if is app error
