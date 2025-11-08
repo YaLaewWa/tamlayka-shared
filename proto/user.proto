@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option go_package = "github.com/YaLaewWa/tamlayka-shared/proto";
+
+service UserService {
+    rpc GetUsersBatch(BatchGetRequest) returns (BatchGetResponse) {}
+}
+
+message BatchGetRequest {
+    repeated string ids = 1;
+}
+
+message UserResponse {
+    string id = 1;
+    string username = 2;
+}
+
+message BatchGetResponse {
+    repeated UserResponse responses = 1;
+}
