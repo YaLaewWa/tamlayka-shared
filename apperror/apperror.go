@@ -7,6 +7,8 @@ import (
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type AppError struct {
@@ -115,4 +117,32 @@ func ErrorHandler(c *fiber.Ctx, err error) error {
 
 	// other case return error that is not fiber error or app error
 	return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Internal Server Error"})
+}
+
+func ConvertAppErrorToGRPC(err error) error {
+	if !IsAppError(err) {
+		return status.Error(codes.Internal, "internal server error")
+	}
+
+	appErr := err.(*AppError)
+	switch appErr.Code {
+	case fiber.StatusInternalServerError:
+		return status.Error(codes.Internal, appErr.Message)
+	case fiber.StatusBadRequest:
+		return status.Error(codes.InvalidArgument, appErr.Message)
+	case fiber.StatusUnauthorized:
+		return status.Error(codes.Unauthenticated, appErr.Message)
+	case fiber.StatusForbidden:
+		return status.Error(codes.PermissionDenied, appErr.Message)
+	case fiber.StatusNotFound:
+		return status.Error(codes.NotFound, appErr.Message)
+	case fiber.StatusConflict:
+		return status.Error(codes.AlreadyExists, appErr.Message)
+	case fiber.StatusUnprocessableEntity:
+		return status.Error(codes.InvalidArgument, appErr.Message)
+	case fiber.StatusServiceUnavailable:
+		return status.Error(codes.Unavailable, appErr.Message)
+	default:
+		return status.Error(codes.Internal, "internal server error")
+	}
 }
