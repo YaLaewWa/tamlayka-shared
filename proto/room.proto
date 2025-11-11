@@ -6,15 +6,10 @@ import "google/protobuf/empty.proto";
 
 service RoomService {
     rpc UpdateRoom(UpdateRoomRequest) returns (google.protobuf.Empty) {}
-    rpc EndRoom(EndRoomRequest) returns (google.protobuf.Empty) {}
 }
 
 message UpdateRoomRequest {
     string id = 1;
     optional string transcript_url = 2;
     optional string summary_url = 3;
-}
-
-message EndRoomRequest {
-    string id = 1;
 }
