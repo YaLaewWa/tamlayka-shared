@@ -38,22 +38,19 @@ func New(config DBConfig) (*gorm.DB, error) {
 // Usage Example:
 //
 //	db.Scopes(database.Paginate(domain.Book{}, limit, page, total, last)).Find(&books)
-func Paginate(model any, limit, page, total, last *int) func(db *gorm.DB) *gorm.DB {
+func Paginate(limit, page, total, last *int) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
 		var totalRows int64
 
-		// create new gorm session for count row
-		// idk why i have to do that
-		// i just followed this https://stackoverflow.com/questions/72666748
-		countDBSession := db.Session(&gorm.Session{Initialized: true})
-		countDBSession.Model(model).Count(&totalRows)
+		// Clone the current query (keeps WHERE, JOIN, etc.)
+		countDB := db.Session(&gorm.Session{})
 
-		// db.Model(&domain.Book{}).Count(&totalRows)
+		countDB.Count(&totalRows)
 
 		*total = int(totalRows)
-		offset := (*page - 1) * *limit
 		*last = int(math.Ceil(float64(totalRows) / float64(*limit)))
 
+		offset := (*page - 1) * *limit
 		return db.Offset(offset).Limit(*limit)
 	}
 }
