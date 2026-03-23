@@ -7,10 +7,10 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func AuthorizeRequest(c *fiber.Ctx, id string) error {
-	token_id, ok := c.Locals("id").(string)
-	if !ok || token_id != id {
-		return apperror.UnauthorizedError(errors.New("unauthorized"), "user id not found in context")
+func GetUserID(c *fiber.Ctx, id string) (string, error) {
+	tokenId, ok := c.Locals("id").(string)
+	if !ok || tokenId != id {
+		return "", apperror.UnauthorizedError(errors.New("unauthorized"), "user id not found in context")
 	}
-	return nil
+	return tokenId, nil
 }
