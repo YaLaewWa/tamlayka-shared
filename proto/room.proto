@@ -1,15 +1,24 @@
 syntax = "proto3";
 
-option go_package = "github.com/YaLaewWa/tamlayka-shared/proto";
-
 import "google/protobuf/empty.proto";
 
+option go_package = "github.com/YaLaewWa/tamlayka-shared/proto";
+
 service RoomService {
-    rpc UpdateRoom(UpdateRoomRequest) returns (google.protobuf.Empty) {}
+  rpc UpdateRoom(UpdateRoomRequest) returns (google.protobuf.Empty) {}
+  rpc GetParticipantIDs(GetParticipantIDsRequest) returns (GetParticipantIDsResponse) {}
 }
 
 message UpdateRoomRequest {
-    string id = 1;
-    optional string transcript_url = 2;
-    optional string summary_url = 3;
+  string id = 1;
+  optional string transcript_url = 2;
+  optional string summary_url = 3;
+}
+
+message GetParticipantIDsRequest {
+  string room_id = 1;
+}
+
+message GetParticipantIDsResponse {
+  repeated string user_ids = 1;
 }
